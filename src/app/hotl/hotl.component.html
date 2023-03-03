@@ -1,0 +1,80 @@
+
+<link rel="stylesheet" href="hotl.component.css">
+
+<section class="wrapper">
+    
+    <div class="container-fostrap">
+        
+        <div>
+            <img src=""/>
+            <h2 >{{title}}</h2>
+         
+            
+            <button class="badge" (click)="toggleIsNewBade()"> 
+
+                <i [ngStyle]="{'display': showBadge ? 'none': 'initial'}" class="fas fa-eye"></i>
+                <i [ngStyle]="{'display': showBadge ? 'initial': 'none'}" class="fas fa-eye-slash"></i>
+                
+            {{showBadge ? 'cacher nouveau' :'afficher nouveau'}}
+            </button>
+        </div>
+
+        
+        <div class="content">
+            <div class="wrap">
+ 
+                <div class="search">
+                   <input type="text" class="searchTerm" placeholder="entrer nom de hotel" [(ngModel)]="hotelFiltre" >
+                   <button type="submit" class="searchButton" >
+                     <i class="fa fa-search" ></i>
+                  </button>
+                 
+                  
+                </div>
+             </div>
+             <div class="alert alert-primary" *ngIf="!!receivedRating">
+                {{receivedRating }}
+             </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4" *ngFor="let hotel of filtereDHotels">
+                        <div class="card">
+                            <a class="img-card" href="">
+                            <img [src]="hotel.imageUrl" />
+                          </a>
+                            <div class="card-content">
+                                <h4 class="card-title">
+                                    <a [href]=""> {{ hotel.HotelName | uppercase}}
+                                  </a>
+                                </h4>
+                                <p class="">
+                                   {{hotel.description}}
+                                </p>
+                                <p class="cart-text"> {{hotel.prix | currency : 'DT ' :'symbol': '1.2-2' :'fr'}}</p>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-baseline">
+                                <app-star-rating [rating]="hotel.rating"
+                                (starRatingClicked)="receivRatingClicked($event)"></app-star-rating>
+                            </div>
+                            
+                            <div class="card-read-more">
+                                <a  class="btn btn-link btn-block" [routerLink]="['/hotels',hotel.HotelId]">
+                                    detaille
+                                </a>
+                            
+                                
+                                <span class="badge" *ngIf="showBadge">Nouveau</span>
+
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
